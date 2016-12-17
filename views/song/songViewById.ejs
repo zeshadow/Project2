@@ -1,0 +1,27 @@
+<html>
+
+<head>
+    <title><%= result[0].title %></title>
+</head>
+
+<body>
+    <h1><%= result[0].title %></h1>
+    <ul>
+        <li>Artist: <%= result[0].artistName %></li>
+        <li>Album Name: <%= result[0].albumName%></li>
+        <li>Instrument: <%= result[0].tabInstrument %></li>
+
+        <li>Tuning: <%= result[0].tabTuning %></li>
+
+
+        <li>Tab:
+            <ul>
+                <%= result[0].tabData %>
+
+            </ul>
+
+        </li>
+    </ul>
+</body>
+
+</html>

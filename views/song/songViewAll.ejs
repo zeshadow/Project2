@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <title>Songs</title>
+    </head>
+    <body>
+        <h1>Songs</h1>
+        <table border="1">
+            <tr><th>Album</th><th>Song Name</th></tr>
+            <%
+                for(var i=0; result.length > i; i++ ) {
+            %>
+            <tr>
+                <td><a href="/album/?album_id=<%= result[i].Song_id %>"><%= result[i].albumName%></a></a></a></td>
+                <td><a href="/song/?song_id=<%= result[i].Song_id %>"><%= result[i].title%></a></td>
+
+            </tr>
+            <% } %>
+        </table>
+    </body>
+
+</html>

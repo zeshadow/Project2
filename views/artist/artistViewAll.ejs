@@ -1,0 +1,17 @@
+<html>
+    <head>
+        <title>artists</title>
+    </head>
+    <body>
+        <h1>Artists</h1>
+        <table border="1">
+            <tr><th>Artists list</th></tr>
+            <% for(var i=0; result.length > i; i++ ) { %>
+            <tr>
+                <td><a href="/artist/?artist_id=<%= result[i].Artist_id %>"><%= result[i].artistName%></a></td>
+            </tr>
+            <% } %>
+        </table>
+    </body>
+
+</html>

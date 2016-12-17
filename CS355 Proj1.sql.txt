@@ -1,0 +1,141 @@
+use ayoubz;
+SET SQL_SAFE_UPDATES = 0;
+
+drop table if exists Artist;
+create table Artist(Artist_id int auto_increment primary key, artistName varchar(30), biography varchar(1000));
+
+drop table if exists userAccount;
+create table userAccount(Account_id int auto_increment primary key, username varchar(50), lname varchar(20), fname varchar(20), email varchar(100), unique(email,username)
+, _password varchar(50));
+
+
+drop table if exists Names;
+create table Names(Name_id int auto_increment primary key,  Artist_id int, name varchar(30),
+	foreign key (Artist_id) references Artist(Artist_id) on delete cascade);
+
+drop table if exists Album;
+create table Album(Album_id int auto_increment primary key, Artist_id int, albumName varchar(50),numTrack int, 
+	foreign key(Artist_id) references Artist(Artist_id) on delete cascade);
+
+
+drop table if exists Song;
+create table Song (Song_id int auto_increment primary key, Album_id int, title varchar(50), tabData varchar(5000), 
+	tabInstrument varchar(50), tabTuning varchar(20),
+	foreign key (Album_id) references Album(Album_id) on delete cascade);
+	
+
+drop table if exists favorites;
+create table favorites(Account_id int, Song_id int, stared int, rated int, primary key(Account_id,Song_id),
+	foreign key (Song_id) references Song(Song_id) on delete cascade,
+	foreign key (Account_id) references userAccount(Account_id) on delete cascade);
+
+
+insert into Artist(artistName,biography) values ('Lindsey Stirling', 'violin player');
+insert into Artist(artistName,biography) values ('Queen', 'glam rock band');
+insert into Artist(artistName,biography) values ('Muse', 'british alt rock');
+insert into Artist(artistName,biography) values ('Kanye','its kanye, enough said');
+
+select * from Artist;
+
+
+insert into Names(Artist_id,name) values (1, 'Lindsey Stirling');
+insert into Names(Artist_id,name) values (2, 'Freddie Mercury');
+insert into Names(Artist_id,name) values (2, 'John Deacon');
+insert into Names(Artist_id,name) values (3, 'Matt Bellamy');
+insert into Names(Artist_id,name) values (3, 'Chris Wolstenholme');
+insert into Names(Artist_id,name) values (3, 'Dominic Howard');
+insert into Names(Artist_id,name) values (4, 'Kanye West');
+
+select * from Names;
+
+insert into Album(Artist_id,albumName,numTrack) values (1, 'Shatter Me', 12);
+insert into Album(Artist_id,albumName,numTrack) values (1, 'Lindsey Stirling', 12);
+insert into Album(Artist_id,albumName,numTrack) values (1, 'Brave Enough', 14);
+insert into Album(Artist_id,albumName,numTrack) values (2, 'Queen' ,10);
+insert into Album(Artist_id,albumName,numTrack) values (2, 'Jazz',13);
+insert into Album(Artist_id,albumName,numTrack) values (3, 'Drones',12);
+insert into Album(Artist_id,albumName,numTrack) values (3, 'Absolution',14);
+
+select * from Album;
+
+
+insert into Song(Album_id,title,tabData,tabInstrument,tabTuning) values (3, 'The Pheonix', 'stuff1', 'violin','standard');
+insert into Song(Album_id,title,tabData,tabInstrument,tabTuning) values (3, 'Brave Enough', 'stuff2','violin','standard');
+insert into Song(Album_id,title,tabData,tabInstrument,tabTuning) values (1, 'We are Giants', 'stuff3','violin','standard');
+insert into Song(Album_id,title,tabData,tabInstrument,tabTuning) values (5, 'Dont Stop Me Now', 'More stuff', 'guitar','standard');
+insert into Song(Album_id,title,tabData,tabInstrument,tabTuning) values (6, 'Mercy', 'things', 'guitar','Drop D');
+insert into Song(Album_id,title,tabData,tabInstrument,tabTuning) values (6, 'The Handler' ,'things and stuff','guitar', 'Drop D'); 
+
+select * from Song;
+
+insert into userAccount( username, lname,fname, email,_password) values ('guy1', 'guy', 'man', 'email@1', '123456');
+insert into userAccount( username, lname,fname, email,_password) values ('guy2', 'dude', 'person', 'email@2', '654321');
+insert into userAccount( username, lname,fname, email,_password) values ('guy3', 'sonny', 'person', 'email@4', '123456A');
+
+select * from userAccount;
+
+insert into favorites(Account_id,Song_id,stared,rated) values (1,1,1,5);
+insert into favorites(Account_id,Song_id,stared,rated) values (1,2,1,4);
+insert into favorites(Account_id,Song_id,stared,rated) values (1,5,1,3);
+insert into favorites(Account_id,Song_id,stared,rated) values (2,4,1,5);
+insert into favorites(Account_id,Song_id,stared,rated) values (2,3,0,2);
+insert into favorites(Account_id,Song_id,stared,rated) values (2,1,1,2);
+insert into favorites(Account_id,Song_id,stared,rated) values (3,1,1,3);
+
+
+
+select * from favorites;
+
+
+
+
+
+
+select s.title, avg(f.rated)
+from userAccount u
+left join favorites f on f.Account_id=u.Account_id
+left join Song s on f.Song_id=s.Song_id
+where f.stared=1
+group by title
+having avg(f.rated)>3
+
+;
+
+
+
+
+
+select title as songs_by_artist
+from Song s
+left join Album a on s.Album_id = a.Album_id
+left join Artist a1 on a1.Artist_id=a.Artist_id
+where a1.artistName='Muse';
+
+
+
+
+
+(select s.title
+from Song s
+left join Album a on a.Album_id=s.Album_id
+where a.Artist_id =1
+)
+union 
+(select s.title
+from Song s
+left join Album a on a.Album_id=s.Album_id
+where a.Artist_id =3);
+
+
+
+
+
+select distinct tabTuning from Song;
+
+
+update Song s
+set s.tabTuning='violin standard'
+where s.tabInstrument in (select tabTuning from Song s1 where s1.tabInstrument = 'violin');
+
+select * from Song;
+

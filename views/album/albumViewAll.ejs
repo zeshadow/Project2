@@ -1,0 +1,23 @@
+<html>
+    <head>
+        <title>album</title>
+    </head>
+    <body>
+        <h1>Album</h1>
+        <table border="1">
+            <tr><th>Artist Name</th><th>Albums</th><th>Number of tracks</th></tr>
+            <%  var j=0;
+                for(var i=0; result.length > i; i++ ) {
+                j=result[i].Artist_id-1;
+            %>
+            <tr>
+                <td><a href="/artist/?artist_id=<%= result[j].Album_id %>"><%= result[i].artistName%></a></td>
+                <td><a href="/album/?album_id=<%= result[i].Album_id %>"><%= result[i].albumName%></a></td>
+                <td><%= result[i].numTrack%></td>
+
+            </tr>
+            <% } %>
+        </table>
+    </body>
+
+</html>

@@ -6,7 +6,10 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
-var school = require('./routes/school_routes');
+var artist = require('./routes/artist_routes');
+var album = require('./routes/album_routes');
+//var name =require('./routes/name_routes');
+var song = require('./routes/song_routes');
 
 var app = express();
 
@@ -24,7 +27,11 @@ app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-app.use('/school', school);
+app.use('/artist', artist);
+//app.use('/name', name);
+app.use('/album', album);
+app.use('/song', song);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

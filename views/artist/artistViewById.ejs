@@ -1,0 +1,25 @@
+<html>
+<head>
+    <title><%= result[0].artistName %></title>
+</head>
+
+<body>
+    <h1><%= result[0].artistName %></h1>
+    <ul>
+        <li>Artist Name: <%= result[0].artistName%></li>
+        <li>Biography: <%= result[0].biography %></li>
+
+        <li>Real Names:
+            <ul>
+                <% for(var j=0; j<result.length;j++) {%>
+
+                <li><%= result[j].name %></li>
+                <% } %>%>
+
+            </ul>
+
+        </li>
+    </ul>
+</body>
+
+</html>
