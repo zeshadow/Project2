@@ -10,6 +10,9 @@ var artist = require('./routes/artist_routes');
 var album = require('./routes/album_routes');
 //var name =require('./routes/name_routes');
 var song = require('./routes/song_routes');
+var about = require('./routes/about_routes');
+var favorite = require('./routes/favorite_routes');
+
 
 var app = express();
 
@@ -31,6 +34,9 @@ app.use('/artist', artist);
 //app.use('/name', name);
 app.use('/album', album);
 app.use('/song', song);
+app.use('/about', about);
+app.use('/favorite', favorite);
+
 
 
 // catch 404 and forward to error handler

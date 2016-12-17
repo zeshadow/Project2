@@ -1,9 +1,17 @@
 <html>
     <head>
-        <title>artists</title>
+        <title>User</title>
     </head>
     <body>
-        <h1>Artists</h1>
+        <h1><%= result[0].username %></h1>
+        <ul>
+            <li>Name: <%= result[0].fname %> <%= result[0].lname %></li>
+            <li>Email: <%= result[0].email%></li>
+        </ul>
+
+        <a href="/favorite/?account_id=1">test</a>
+
+
         <table border="1">
             <tr><th>Artists list</th></tr>
             <% for(var i=0; result.length > i; i++ ) { %>
